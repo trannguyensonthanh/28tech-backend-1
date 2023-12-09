@@ -1,0 +1,106 @@
+/* Apply styles to the header */
+header.header {
+    background-color: #3498db; /* Set your background color */
+    color: #fff; /* Set your text color */
+    padding: 10px 0px; /* Adjust padding as needed */
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+    
+
+  
+  /* Align items vertically in the row */
+  .row.align-items-center {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Style the columns */
+
+  /* Style the inner logo */
+ .header .inner-logo a {
+    text-decoration: none; /* Remove underline from the link */
+    color: #fff; /* Set your text color */
+    font-weight: bold; /* Adjust font weight as needed */
+    font-size: 24px;
+  }
+  
+  /* Hover effect on the inner logo */
+  .inner-logo a:hover {
+    color: #e74c3c; /* Set your hover color */
+  }
+  
+  /* Responsive styles for smaller screens */
+  @media (max-width: 768px) {
+    .col-3, .col-9 {
+      width: 100%; /* Make columns take full width on smaller screens */
+    }
+  }
+  
+  /* Apply styles to the Sider component */
+.sider {
+    width: 150px; /* Set your preferred width */
+    height: calc(100vh - 56px); /* Take full height of the viewport */
+    background-color: #2c3e50; /* Set your background color */
+    color: #fff; /* Set your text color */
+   
+    position: fixed;
+    top: 56px;
+    left: 0px;
+  }
+  
+.body .main {
+    margin: 15px;
+    position: relative;
+    left: 150px;
+    width: calc(100%-100px);
+}
+
+/* show alert */
+[show-alert] {
+  position: fixed;
+  top: 70px;
+  right: 15px;
+  z-index: 999;
+}
+[show-alert].alert-hidden {
+animation-name: alert-hidden;
+animation-duration: 0.5s;
+animation-fill-mode: both;
+}
+@keyframes alert-hidden {
+  form {
+    right: 15px;
+  }
+  to {
+    right: -100%;
+    display: none;
+  }
+}
+
+[show-alert] [close-alert] {
+  background-color: #ffffffc4;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  font-weight: 600;
+  border-radius: 50%;
+  cursor: pointer;
+}
+/* end show alert */
+
+[upload-image-preview].image-preview {
+  width: 150px;
+  height: auto;
+  margin-top: 15px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.image-preview[src=""] {
+  display: none;
+}
