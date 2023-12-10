@@ -8,7 +8,9 @@ header.header {
     z-index: 999;
 }
     
-
+.form-control {
+  width: 90%;
+}
   
   /* Align items vertically in the row */
   .row.align-items-center {

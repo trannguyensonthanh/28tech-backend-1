@@ -3,6 +3,8 @@ const filterStatusHelper = require("../../helpers/filterStatus")
 const searchHelper = require("../../helpers/search")
 const paginationHelper = require("../../helpers/pagination")
 const systemConfig = require("../../config/system")
+
+
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
 // đoạn bộ lọc
@@ -31,6 +33,16 @@ countProducts
 
 )
 
+// sort
+ let sort = {};
+ if (req.query.sortKey && req.query.sortValue){
+   sort[req.query.sortKey] = req.query.sortValue
+ }
+ else { 
+  sort.position = "desc";
+ }
+//end sort
+
 // if (req.query.page ){
 //   objectPagination.currentPage = parseInt(req.query.page);
 // }
@@ -40,7 +52,7 @@ countProducts
 // objectPagination.totalPage = totalPage;
  //end pagination
 
-  const products = await Product.find(find).sort({position: "desc"}).limit(objectPagination.limitItems).skip(objectPagination.skip);
+  const products = await Product.find(find).sort(sort).limit(objectPagination.limitItems).skip(objectPagination.skip);
 
 // const dataSearch = req.query.keyword; // cách cũ 
 
