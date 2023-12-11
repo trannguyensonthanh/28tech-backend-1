@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert
+include ../../mixins/select-tree.pug
 
 block main 
   +alert-error(3000)
@@ -11,9 +12,14 @@ block main
       label(for="title") Tiêu đề:
       input(type="text" id="title" name="title" class="form-control" required)
 
-    div(class="form-group")
-      label(for="parent_id") Danh mục cha
-      input(type="text" id="parent_id" name="parent_id" class="form-control")
+    //- div(class="form-group")
+    //-   label(for="parent_id") Danh mục cha
+    //-   input(type="text" id="parent_id" name="parent_id" class="form-control")
+
+    select(name="parent_id" id="parent_id" class="form-control")
+      option(value="") -- danh mục cha --
+      if (records)
+        +select-tree(records)
 
     div(class="form-group")
       label(for="desc") Mô tả:
