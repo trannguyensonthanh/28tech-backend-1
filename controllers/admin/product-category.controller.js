@@ -51,3 +51,44 @@ const record = new ProductCategory(req.body);
 await record.save();
 res.redirect(`${systemConfig.prefixAdmin}/products-category`);
 }
+
+// [get] /admin/products-category/edit/:id
+module.exports.edit = async (req, res) => {
+try {
+ let find = {
+    deleted: false
+  }
+  let findDetail = {
+    deleted: false
+  }
+  if (req.params) {
+    findDetail._id = req.params.id
+  }
+
+  const records = await ProductCategory.find(find);
+  const newRecords = createTreeHelper.tree(records);
+  const recordDetail = await ProductCategory.findOne(findDetail);
+    res.render("admin/pages/products-category/edit.pug", {
+      pageTitle: "Tạo danh mục sản phẩm",
+      records: newRecords,
+      recordDetail: recordDetail,
+    })
+} catch (error){
+  res.redirect(`${systemConfig.prefixAdmin}/products-category`);
+}
+ 
+  }
+
+// [PATCH] /admin/products-category/edit/:id
+module.exports.editPatch = async (req, res) => {
+  const id = req.params.id;
+  try {
+ req.body.position = parseInt(req.body.position);
+  await ProductCategory.updateOne({_id: id }, req.body);
+  res.redirect("back")
+  } catch (error) {
+    res.redirect(`${systemConfig.prefixAdmin}/products-category`);
+  }
+ 
+  }
+  

@@ -1,0 +1,57 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert
+include ../../mixins/select-tree.pug
+
+block main 
+  +alert-error(3000)
+  h1(class="mb-4") Chỉnh sửa danh mục sản phẩm 
+  form(action=`${prefixAdmin}/products-category/edit/${recordDetail.id}?_method=PATCH` method="POST" enctype="multipart/form-data")
+
+    div(class="form-group")
+      label(for="title") Tiêu đề:
+      input(type="text" value=recordDetail.title id="title" name="title" class="form-control" required)
+
+    select(name="parent_id" id="parent_id" class="form-control")
+      option(value="") -- danh mục cha --
+      
+      if (records)
+        +select-tree(records, recordDetail.parent_id)
+
+    div(class="form-group")
+      label(for="desc") Mô tả:
+      textarea( type="text" id="desc"  name="description" class="form-control textarea-mce" rows = "5" ) #{recordDetail.description}
+     
+    div(class="form-group" upload-image)
+      label(for="thumbnail") Ảnh:
+      input(type="file" id="thumbnail" name="thumbnail" class="form-control-file" upload-image-input accept="image/*")
+      img(src=recordDetail.thumbnail alt="" class="image-preview" upload-image-preview)
+
+    div(class="form-group")
+      label(for="position") Vị trí:
+      input(type="number" id="position" value=recordDetail.position name="position" class="form-control" placeholder="Tự động tăng" min="1")
+
+    div(class="form-group form-check form-check-inline")
+      input(
+        type="radio"
+        class="form-check-input"
+        id="statusActive"
+        name="status"
+        value="active"
+        checked = status == active ? true : false
+      )
+      label(for="statusActive" class="form-check-label") Hoạt động
+
+    div(class="form-group form-check form-check-inline")
+      input(
+        type="radio"
+        class="form-check-input"
+        id="statusInActive"
+        name="status"
+        value="inactive"
+        checked = status == inactive ? true : false
+      )
+      label(for="statusInActive" class="form-check-label") Dừng hoạt động
+
+         
+    div(class="form-group")
+      button(type="submit" class="btn btn-primary") Tạo mới
