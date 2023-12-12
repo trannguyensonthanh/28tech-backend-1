@@ -15,11 +15,12 @@ block main
     //- div(class="form-group")
     //-   label(for="parent_id") Danh mục cha
     //-   input(type="text" id="parent_id" name="parent_id" class="form-control")
-
-    select(name="parent_id" id="parent_id" class="form-control")
-      option(value="") -- danh mục cha --
-      if (records)
-        +select-tree(records)
+    div(class="form-group")
+      label(for="parent_id") Danh mục cha
+      select(name="parent_id" id="parent_id" class="form-control")
+        option(value="") -- danh mục cha --
+        if (records)
+          +select-tree(records)
 
     div(class="form-group")
       label(for="desc") Mô tả:
