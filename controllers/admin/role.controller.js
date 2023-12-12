@@ -29,3 +29,40 @@ const record = new Role(req.body)
 await record.save();
 res.redirect(`${systemConfig.prefixAdmin}/roles`)
 }
+
+//[get]  /admin/roles/create
+module.exports.edit = async (req, res) => {
+try {
+const find = {
+  deleted: false
+}
+if (req.params.id) {
+  find._id = req.params.id;
+}
+console.log(req.params.id);
+const records = await Role.findOne(find)
+
+  res.render("admin/pages/roles/edit", {
+     pageTitle: "Chỉnh sửa nhóm quyền",
+     records : records
+  })
+} catch (error) {
+  res.redirect(`${systemConfig.prefixAdmin}/roles`)
+}
+
+}
+
+//[patch]  /admin/roles/create
+module.exports.editPatch = async (req, res) => {
+try {
+if (req.params.id) {
+await Role.updateOne({_id: req.params.id}, req.body)
+}
+req.flash("success", "cập nhật nhóm quyền thành công")
+
+} catch (error) {
+  req.flash("error", "cập nhậy nhóm quyền thất bại")
+}
+res.redirect("back")
+
+}
