@@ -159,7 +159,6 @@ else {
 // if (req.file){
 //   req.body.thumbnail = `/uploads/${req.file.filename}`;
 // }
-
 const product = new Product(req.body);
 await product.save();
 res.redirect(`${systemConfig.prefixAdmin}/products`) 
@@ -178,10 +177,11 @@ const findCate = {
     deleted: false,
     _id: req.params.id
   };
+
   const category = await ProductCategory.find(findCate);
   const newCategory = createTreeHelper.tree(category);
   const product = await Product.findOne(find);
-  console.log(product);
+
   res.render("admin/pages/products/edit.pug", {
     pageTitle: "chỉnh sửa sản phẩm",
     product: product,
