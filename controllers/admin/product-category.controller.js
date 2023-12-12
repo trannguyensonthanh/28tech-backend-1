@@ -9,6 +9,7 @@ module.exports.index = async (req, res) => {
   }
 
   const records = await ProductCategory.find(find);
+
   const newRecords = createTreeHelper.tree(records);
   
   
@@ -25,6 +26,7 @@ let find = {
 }
 
 const records = await ProductCategory.find(find);
+
 const newRecords = createTreeHelper.tree(records);
 
 
