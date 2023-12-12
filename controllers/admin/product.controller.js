@@ -167,17 +167,25 @@ res.redirect(`${systemConfig.prefixAdmin}/products`)
 
 // [get] /admin/products/edit/:id
 module.exports.edit = async (req, res) => {
+
+  
  try {
+const findCate = {
+ deleted: false
+}
+
    const find = {
     deleted: false,
     _id: req.params.id
   };
-
+  const category = await ProductCategory.find(findCate);
+  const newCategory = createTreeHelper.tree(category);
   const product = await Product.findOne(find);
   console.log(product);
   res.render("admin/pages/products/edit.pug", {
     pageTitle: "chỉnh sửa sản phẩm",
-    product: product
+    product: product,
+    newCategory: newCategory
   });
  } catch(error) {
   res.redirect(`${systemConfig.prefixAdmin}/products`);

@@ -10,12 +10,14 @@ block main
     div(class="form-group")
       label(for="title") Tiêu đề:
       input(type="text" value=recordDetail.title id="title" name="title" class="form-control" required)
-
-    select(name="parent_id" id="parent_id" class="form-control")
-      option(value="") -- danh mục cha --
       
-      if (records)
-        +select-tree(records, recordDetail.parent_id)
+    div(class="form-group")
+      label(for="product_category_id") Danh mục
+      select(name="parent_id" id="parent_id" class="form-control")
+        option(value="") -- danh mục cha --
+        
+        if (records)
+          +select-tree(records, recordDetail.parent_id)
 
     div(class="form-group")
       label(for="desc") Mô tả:
