@@ -12,6 +12,7 @@ header.header {
   width: 90%;
 }
   
+  
   /* Align items vertically in the row */
   .row.align-items-center {
     display: flex;
