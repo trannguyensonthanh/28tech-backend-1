@@ -34,5 +34,10 @@ if (user.status == "inactive"){
 }
 res.cookie("token", user.token);
  res.redirect(`${systemConfig.prefixAdmin}/dashboard/`)
-  res.send("ok");
+}
+
+// [get] /admin/auth/logout
+module.exports.logout = (req, res) => {
+  res.clearCookie("token");
+ res.redirect(`${systemConfig.prefixAdmin}/auth/login`);
 }
