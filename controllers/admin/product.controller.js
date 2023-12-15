@@ -5,6 +5,7 @@ const paginationHelper = require("../../helpers/pagination")
 const systemConfig = require("../../config/system")
 const createTreeHelper = require("../../helpers/createTree");
 const ProductCategory = require("../../models/product-category.model")
+const Account = require("../../models/account.model")
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
 // đoạn bộ lọc
@@ -52,7 +53,17 @@ countProducts
 // objectPagination.totalPage = totalPage;
  //end pagination
 
+
   const products = await Product.find(find).sort(sort).limit(objectPagination.limitItems).skip(objectPagination.skip);
+
+for (const product of products){
+  const user = await Account.findOne({
+    _id: product.createdBy.account_id
+  })
+  if (user) {
+    product.accountFullName = user.fullName;
+  }
+}
 
 // const dataSearch = req.query.keyword; // cách cũ 
 
@@ -65,6 +76,7 @@ countProducts
 //   searchProduct = products;
 // }
  
+
 
  res.render ("admin/pages/products/index", {
     pageTitle: "Danh sách sản phẩm",
@@ -156,9 +168,13 @@ if (req.body.position == "") {
 else {
   req.body.position = parseInt(req.body.position);
 }
-// if (req.file){
-//   req.body.thumbnail = `/uploads/${req.file.filename}`;
-// }
+
+req.body.createdBy = {
+  account_id: res.locals.user.id
+}
+
+
+
 const product = new Product(req.body);
 await product.save();
 res.redirect(`${systemConfig.prefixAdmin}/products`) 

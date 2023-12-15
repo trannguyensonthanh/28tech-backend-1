@@ -5,6 +5,7 @@ include ../../mixins/pagination
 include ../../mixins/form-change-multi
 include ../../mixins/alert
 include ../../mixins/sort
+include ../../mixins/moment
 
 
 
@@ -58,6 +59,7 @@ block main
                   th Giá
                   th Vị trí
                   th Trạng thái
+                  th Người tạo
                   th Hành động
               tbody
                 each item, index in items 
@@ -104,8 +106,13 @@ block main
                           data-id=item.id 
                           button-change-status
                           class="badge badge-danger") Dừng hoạt động
+                    td 
+                      p #{item.accountFullName}
+                      if (item.accountFullName)
+                        p 
+                          +formatDateTime(item.createdBy.createdAt)
+
                     td
-                    
                       a(href=`${prefixAdmin}/products/detail/${item.id}`
                         class="btn btn-secondary btn-sm"
                         ) Chi tiết

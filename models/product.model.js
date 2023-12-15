@@ -17,6 +17,13 @@ thumbnail: String,
 status: String,
 position: Number,
 slug: { type: String, slug: "title", unique: true },
+createdBy: {
+  account_id: String,
+  createdAt: {
+    type: Date,
+    default: Date.now // hàm để lấy ra thời gian hiện tại
+  }
+},
 deleted: {
   type: Boolean,
   default: false
