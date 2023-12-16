@@ -39,7 +39,6 @@ const find = {
 if (req.params.id) {
   find._id = req.params.id;
 }
-console.log(req.params.id);
 const records = await Role.findOne(find)
 
   res.render("admin/pages/roles/edit", {

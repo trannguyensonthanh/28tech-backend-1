@@ -157,7 +157,6 @@ module.exports.changeMulti = async (req, res) => {
       );
       break;
     case "change-position":
-      console.log(ids);
       for (const item of ids) {
         let [id, position] = item.split("-");
         position = parseInt(position);
