@@ -13,7 +13,7 @@ if (keyword){
     status: "active"
   })
   newProducts = productsHelper.priceNewProducts(products);
- console.log(newProducts)
+
 }
 res.render("client/pages/search/index.pug", {
   pageTitle : "Kết quả tìm kiếm",
