@@ -75,3 +75,14 @@ cart.totalPrice = cart.products.reduce( (sum, item) => {
     cartDetail: cart
 });
 }
+
+// [get] /cart/delete/:productId
+module.exports.delete = async (req, res) => {
+  const cartId = req.cookies.cartId;
+const productId = req.params.productId;
+await Cart.updateOne({_id: cartId}, {
+  "$pull" :{ products : {"product_id" : productId}}
+});
+req.flash("success", " Đã xóa thành công");
+res.redirect("back");
+}
