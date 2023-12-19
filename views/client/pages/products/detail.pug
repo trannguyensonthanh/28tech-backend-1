@@ -3,8 +3,11 @@ include ../../mixins/box-head.pug
 include ../../mixins/alert.pug
 block main 
   +alert-success(3000)
+
+
   .product-detail 
     .container.my-5
+      button(class="btn btn-secondary" button-go-back) Trở lại
       .row
         .col-6 
           .inner-thumb 
@@ -48,6 +51,6 @@ block main
         .col-12 
         +box-head("Mô tả sản phẩm")
         .inner-desc !{product.description}
-  
+    
 
   

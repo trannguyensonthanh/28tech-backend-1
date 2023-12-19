@@ -11,3 +11,17 @@ if (showAlert){
   })
 }
 //end show alert 
+
+// back button
+const buttonsGoback = document.querySelectorAll("[button-go-back]");
+
+if(buttonsGoback.length > 0){
+    buttonsGoback.forEach(button => {
+      button.addEventListener("click", (e) => {
+        history.back();
+      });
+    })
+    
+}
+
+//end backbutton
