@@ -9,7 +9,7 @@ userInfo: {
 },
 products: [
   {
-    products_id: String,
+    product_id: String,
     price: Number,
     discountPercentage: Number,
     quantity: Number,
