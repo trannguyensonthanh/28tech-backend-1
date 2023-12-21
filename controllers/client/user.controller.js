@@ -1,4 +1,5 @@
 const User = require("../../models/user.model")
+const Cart = require("../../models/cart.model")
 const ForgotPassword = require("../../models/forgot-password.model")
 const generateHelper = require("../../helpers/generate")
 const sendMailHelper = require("../../helpers/sendMail")
@@ -65,6 +66,14 @@ if (user.status == "inactive"){
 }
 
 res.cookie("tokenUser", user.tokenUser);
+// lưu user_id vào carts
+console.log(user.id)
+console.log(req.cookies.cartId)
+await Cart.updateOne({
+  _id: req.cookies.cartId
+}, {
+  user_id: user.id
+});
 res.redirect("/");
 
   }
