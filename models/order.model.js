@@ -19,6 +19,6 @@ products: [
   timestamps: true
 });
 
-const Order = mongoose.model("Order", orderSchema, "order"); //Role là tên của model này, roleSchema là tên của định dạng,  roles là tên trong mongodb
+const Order = mongoose.model("Order", orderSchema, "orders"); //Role là tên của model này, roleSchema là tên của định dạng,  roles là tên trong mongodb
 
 module.exports = Order;  // chỉ export cái thằng Role 

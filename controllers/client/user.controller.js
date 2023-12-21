@@ -137,5 +137,26 @@ const user = await User.findOne({
 });
 res.cookie("tokenUser", user.tokenUser);
 
-  res.redirect("user/password/reset");
+  res.redirect("/user/password/reset");
   };
+
+      //[get] user/password/reset
+module.exports.resetPassword = async (req, res) => {
+
+    res.render("client/pages/user/reset-password", {
+      pageTitle: "Đổi mật khậu",
+
+    });
+    };
+
+      //[post] user/password/reset
+module.exports.resetPasswordPost = async (req, res) => {
+const password = req.body.password;
+const tokenUser= req.cookies.tokenUser;
+await User.updateOne({
+  tokenUser: tokenUser
+},{
+  password: md5(password)
+})
+    res.redirect("/");
+    };
