@@ -1,6 +1,7 @@
 const User = require("../../models/user.model")
 const ForgotPassword = require("../../models/forgot-password.model")
 const generateHelper = require("../../helpers/generate")
+const sendMailHelper = require("../../helpers/sendMail")
 const md5 = require("md5");
 //[get] /user/register
 module.exports.register = async (req, res) => {
@@ -104,6 +105,12 @@ const objectForgotPassword = {
 }
 const forgotPassword = new ForgotPassword(objectForgotPassword);
 await forgotPassword.save();
+
+// gửi email
+const subject = `Mã OTP ĐỂ XÁC MINH LẤY LẠI MẬT KHẨU`
+const html = `Mã OTP ĐỂ XÁC MINH LẤY LẠI MẬT KHẨU LÀ <b>${otp}</b>. Thời hạn sử dụng: 3 phút . Lưu ý không được để lộ OTP `;
+sendMailHelper.sendMail(email, subject, html );
+// end gửi email
 
 res.redirect(`/user/password/otp?email=${email}`);
   }
