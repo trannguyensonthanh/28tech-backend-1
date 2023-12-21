@@ -167,3 +167,10 @@ await User.updateOne({
 })
     res.redirect("/");
     };
+
+    //[get] /user/info
+module.exports.info = async (req, res) => {
+  res.render("client/pages/user/info", {
+    pageTitle: "thông tin tài khoản"
+  })
+  }

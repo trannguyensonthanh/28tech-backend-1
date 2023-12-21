@@ -37,8 +37,11 @@ header.header
                 href="/cart"
               ) Giỏ hàng (#{miniCart ? miniCart.totalQuantity : 0})
             if(user)
+              
               li
-              a(href="/user/logout") Đăng xuất
+                a(href="/user/logout") Đăng xuất
+              li
+                a(href="/user/info") #{user.fullName}
             else 
               li
                 a(href="/user/register") Đăng kí
