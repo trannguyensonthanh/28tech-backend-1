@@ -12,6 +12,10 @@ header.header {
   width: 90%;
 }
   
+  .row-mt-4 {
+    display: flex!important;
+    flex-wrap: wrap;
+  }
   
   /* Align items vertically in the row */
   .row.align-items-center {
