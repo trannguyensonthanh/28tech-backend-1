@@ -37,7 +37,8 @@ header.header
                 href="/cart"
               ) Giỏ hàng (#{miniCart ? miniCart.totalQuantity : 0})
             if(user)
-              
+              li
+                a(href="/chat") chat
               li
                 a(href="/user/logout") Đăng xuất
               li
