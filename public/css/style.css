@@ -281,7 +281,6 @@ animation-fill-mode: both;
   background-color: #F0F0EF;
   padding: 8px;
   border-radius: 15px;
-  margin-top: 5px;
   color: #666;
   font-size: 18px;
 }
@@ -289,13 +288,17 @@ animation-fill-mode: both;
 
 
 .chat .inner-outgoing {
-  background-color: #FE5DA3;
   margin-left: 60%;
 }
+
 
 .chat .inner-outgoing .inner-content {
   color: #fff;
   font-size: 18px;
+  background-color: #FE5DA3;
+  padding: 8px;
+  border-radius: 15px;
+
 }
 
 
