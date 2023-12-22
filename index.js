@@ -6,6 +6,9 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const moment = require("moment")
 var path = require('path');
+const http = require('http');
+const { Server } = require("socket.io");
+
 require("dotenv").config();
 const port = process.env.PORT;
 
@@ -25,6 +28,15 @@ app.set("view engine", "pug"); // sử dụng pug
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 app.locals.moment = moment;
 app.use(express.static(`${__dirname}/public`)); // sử dụng file static để cho code bk là file nào đc xuất ra  sử dụng thêm __dirname để sử dụng trên cả online luôn
+
+// socket.io
+const server = http.createServer(app);
+const io = new Server(server);
+io.on('connection', (socket) => {
+  console.log('a user connected', socket.id);
+});
+
+
 //flash
 app.use(cookieParser('sonthanhdepzai'));
 app.use(session({ cookie: { maxAge: 60000 }}));
@@ -44,6 +56,6 @@ app.get("*", (req, res) => {
   });
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
