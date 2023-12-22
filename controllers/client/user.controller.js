@@ -67,8 +67,6 @@ if (user.status == "inactive"){
 
 res.cookie("tokenUser", user.tokenUser);
 // lưu user_id vào carts
-console.log(user.id)
-console.log(req.cookies.cartId)
 await Cart.updateOne({
   _id: req.cookies.cartId
 }, {
