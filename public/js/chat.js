@@ -36,6 +36,15 @@ console.log(myId);
   <div class="inner-content">${data.content}</div>
   `;
   body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
 })
 
 // end SERVER_RETURN_MESSAGE
+
+// scroll chat to bottom
+const bodyChat= document.querySelector(".chat .inner-body");
+if (bodyChat){
+  bodyChat.scrollTop = bodyChat.scrollHeight;
+}
+
+// end scroll chat to bottom
