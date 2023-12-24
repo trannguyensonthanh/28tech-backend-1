@@ -286,7 +286,6 @@ animation-fill-mode: both;
 }
 
 
-
 .chat .inner-outgoing {
   margin-left: 60%;
 }
@@ -347,6 +346,26 @@ animation-fill-mode: both;
 .chat .inner-foot .inner-form button:hover {
   background-color: #b34c79;
 }
+
+
+.chat .inner-body .inner-images img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  background-color: #efefef;
+  padding: 10px;
+  margin: 0px 5px 5px 0px;
+  border-radius: 5px;
+ }
+ 
+ .chat .inner-body .inner-outgoing .inner-images {
+   margin-left: auto;
+   text-align: right;
+ }
+ 
+ .chat .inner-body .inner-outgoing .inner-images img {
+   margin: 0 0 5px 5px;
+ }
 
 /* end chat */
 
