@@ -76,6 +76,10 @@ if (data.images){
   `;
   body.insertBefore(div, boxTyping);
   body.scrollTop = body.scrollHeight;
+  const boxImages = div.querySelector(".inner-images");
+  if (boxImages){
+    const gallery = new Viewer(boxImages);
+  }
 })
 
 // end SERVER_RETURN_MESSAGE
@@ -185,3 +189,9 @@ if (inputChatTyping){
 
 // end CLIENT_SEND_TYPING
 
+// PREVIEW IMAGE
+const chatBody = document.querySelector(".chat .inner-body");
+if(chatBody){
+  const gallery = new Viewer(chatBody);
+}
+// END PREVIEW IMAGE
