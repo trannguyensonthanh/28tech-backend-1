@@ -34,3 +34,27 @@ const users = await User.find({
       users: users 
    })
 }
+
+// [get] / users/request
+
+module.exports.request = async (req, res) => {
+
+  // Socket
+usersSocket(res);
+// end Socket
+  const userId = res.locals.user.id;
+  const myUser = await User.findOne({
+    _id: userId
+  });
+const requestFriends = myUser.requestFriends;
+ const users = await User.find({
+   _id: { $in: requestFriends},
+    status: "active",
+    deleted: false
+ }).select("id avatar fullName");
+ console.log(users);
+  res.render("client/pages/users/request", {
+    pageTitle: "Lời mời đã gửi",
+   users: users
+  });
+}
