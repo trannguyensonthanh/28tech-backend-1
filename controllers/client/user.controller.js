@@ -28,7 +28,6 @@ await user.save();
 res.cookie("tokenUser", user.tokenUser); 
 res.redirect("/");
 
-res.send("ok")
 }
 
 //[get] /user/login
