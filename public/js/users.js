@@ -83,59 +83,77 @@ acceptFriend(listBtnAcceptFriend);
  socket.on("SERVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
 
     const dataUsersAccept = document.querySelector("[data-users-accept]");
-    const userId = dataUsersAccept.getAttribute("data-users-accept")
-    if (userId == data.userId) {
+    if(dataUsersAccept){
+          const userId = dataUsersAccept.getAttribute("data-users-accept")
+          if (userId == data.userId) {
 
-      // vẽ user ra giao diện
-      const newBoxUser = document.createElement("div");
-      newBoxUser.classList.add("col-6");
-      newBoxUser.setAttribute("user-id", data.infoUserA._id)
-      newBoxUser.innerHTML = `
-      <div class="box-user">
-      <div class="inner-avatar">
-        <img src=${data.infoUserA.avatar ? data.infoUserA.avatar  : "https://i.pinimg.com/236x/e5/bf/a2/e5bfa2feb7d65537aa684ef60f177de1.jpg"} alt=${data.infoUserA.fullName}>
-      </div>
-  <div class="inner-info">
-  <div class="inner-name">${data.infoUserA.fullName}</div>
-  <div class="inner-buttons">
-  <button
-   class="btn btn-sm btn-primary mr-1" 
-   btn-accept-friend=${data.infoUserA._id}
-   >
-   Chấp nhận
-   </button>
-  <button
-   class="btn btn-sm btn-secondary mr-1" 
-   btn-refuse-friend=${data.infoUserA._id}
-   >Xóa
-   </button>
-  <button 
-    class="btn btn-sm btn-secondary mr-1" 
-    btn-deleted-friend="btn-deleted-friend" 
-    disabled="disabled"
-  >Đã xóa
-  </button>
-  <button class="btn btn-sm btn-secondary mr-1" btn-accepted-friend="btn-accepted-friend" disabled="disabled">Đã chấp nhận</button>
-  </div>
-  </div>
-  </div>
-      `
-      dataUsersAccept.appendChild(newBoxUser);
-// hết vẽ giao diện
+            // vẽ user ra giao diện
+            const newBoxUser = document.createElement("div");
+            newBoxUser.classList.add("col-6");
+            newBoxUser.setAttribute("user-id", data.infoUserA._id)
+            newBoxUser.innerHTML = `
+            <div class="box-user">
+            <div class="inner-avatar">
+              <img src=${data.infoUserA.avatar ? data.infoUserA.avatar  : "https://i.pinimg.com/236x/e5/bf/a2/e5bfa2feb7d65537aa684ef60f177de1.jpg"} alt=${data.infoUserA.fullName}>
+            </div>
+        <div class="inner-info">
+        <div class="inner-name">${data.infoUserA.fullName}</div>
+        <div class="inner-buttons">
+        <button
+         class="btn btn-sm btn-primary mr-1" 
+         btn-accept-friend=${data.infoUserA._id}
+         >
+         Chấp nhận
+         </button>
+        <button
+         class="btn btn-sm btn-secondary mr-1" 
+         btn-refuse-friend=${data.infoUserA._id}
+         >Xóa
+         </button>
+        <button 
+          class="btn btn-sm btn-secondary mr-1" 
+          btn-deleted-friend="btn-deleted-friend" 
+          disabled="disabled"
+        >Đã xóa
+        </button>
+        <button class="btn btn-sm btn-secondary mr-1" btn-accepted-friend="btn-accepted-friend" disabled="disabled">Đã chấp nhận</button>
+        </div>
+        </div>
+        </div>
+            `
+            dataUsersAccept.appendChild(newBoxUser);
+      // hết vẽ giao diện
+      
+      // xóa lời mời kết bạn
+      const btnRefuseFriend = newBoxUser.querySelectorAll("[btn-refuse-friend]");
+      refuseFriend(btnRefuseFriend);
+      // end xóa lời mời kết bạn
+      
+      // chấp nhận lời mời kết bạn
+      const btnAcceptFriend = document.querySelectorAll("[btn-accept-friend]");
+      acceptFriend(btnAcceptFriend);
+      
+      
+      // end chấp nhận lời mời kết bạn 
+      
+          }
+    } 
 
-// xóa lời mời kết bạn
-const btnRefuseFriend = newBoxUser.querySelectorAll("[btn-refuse-friend]");
-refuseFriend(btnRefuseFriend);
-// end xóa lời mời kết bạn
+    // trang danh sách người dùng
+    const dataUsersNotFriend = document.querySelector("[data-users-not-friend]");
+if (dataUsersNotFriend){
+  const userId = dataUsersNotFriend.getAttribute("data-users-not-friend");
+  if(userId == data.userId){
+     // xóa a khỏi danh sách của b
 
-// chấp nhận lời mời kết bạn
-const btnAcceptFriend = document.querySelectorAll("[btn-accept-friend]");
-acceptFriend(btnAcceptFriend);
+     const boxUserRemove = dataUsersNotFriend.querySelector(`[user-id='${data.infoUserA._id}']`);
+     if(boxUserRemove){
+      dataUsersNotFriend.removeChild(boxUserRemove);
+     }
+  }
+}
+    // hết trang danh sách người dùng
 
-
-// end chấp nhận lời mời kết bạn 
-
-    }
    
   });
 
