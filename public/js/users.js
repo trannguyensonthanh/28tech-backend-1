@@ -40,15 +40,10 @@ const refuseFriend = (listBtnRefuseFriend) => {
 
 // end hàm từ chối lời mời kết bạn
 
-// chức năng từ chối kết bạn
-const listBtnRefuseFriend = document.querySelectorAll("[btn-refuse-friend]");
-refuseFriend(listBtnRefuseFriend);
-// end chức năng từ chối kết bạn
-
-// chức năng chấ nhận kết bạn
-const listBtnAcceptFriend = document.querySelectorAll("[btn-accept-friend]");
-if (listBtnAcceptFriend.length > 0) {
-  listBtnAcceptFriend.forEach(button => {
+// hàm chấp nhận lời mời
+const acceptFriend = (acceptFriends) => {
+  if (acceptFriends.length > 0) {
+    acceptFriends.forEach(button => {
     button.addEventListener("click", () => {
       button.closest(".box-user").classList.add("accepted");
       const userId = button.getAttribute("btn-accept-friend");
@@ -56,6 +51,19 @@ if (listBtnAcceptFriend.length > 0) {
     })
   }) 
 }
+}
+
+
+// end hàm chấp nhận lời mời
+
+// chức năng từ chối kết bạn
+const listBtnRefuseFriend = document.querySelectorAll("[btn-refuse-friend]");
+refuseFriend(listBtnRefuseFriend);
+// end chức năng từ chối kết bạn
+
+// chức năng chấ nhận kết bạn
+const listBtnAcceptFriend = document.querySelectorAll("[btn-accept-friend]");
+acceptFriend(listBtnAcceptFriend);
 // end chức năng chấp nhận kết bạn
 
 // SERVER_RETURN_LENGTH_ACCEPT_FRIEND
@@ -119,6 +127,12 @@ const btnRefuseFriend = newBoxUser.querySelectorAll("[btn-refuse-friend]");
 refuseFriend(btnRefuseFriend);
 // end xóa lời mời kết bạn
 
+// chấp nhận lời mời kết bạn
+const btnAcceptFriend = document.querySelectorAll("[btn-accept-friend]");
+acceptFriend(btnAcceptFriend);
+
+
+// end chấp nhận lời mời kết bạn 
 
     }
    
