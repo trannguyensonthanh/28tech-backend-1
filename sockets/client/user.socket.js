@@ -106,6 +106,13 @@ socket.broadcast.emit("SERVER_RETURN_INFO_ACCEPT_FRIEND", {
     lengthAcceptFriends: lengthAcceptFriends
   });
 
+// lấy userId A về cho B
+
+socket.broadcast.emit("SERVER_RETURN_USER_ID_CANCEL_FRIEND", {
+  userId: userId,
+  userIdA: myUserId
+});
+
     })
 
 
