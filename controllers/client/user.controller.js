@@ -65,6 +65,13 @@ if (user.status == "inactive"){
 }
 
 res.cookie("tokenUser", user.tokenUser);
+
+await User.updateOne({
+  _id: user.id
+},{
+  statusOnline: "online"
+});
+
 // lưu user_id vào carts
 await Cart.updateOne({
   _id: req.cookies.cartId
@@ -77,6 +84,12 @@ res.redirect("/");
 
   //[get] /user/logout
 module.exports.logout = async (req, res) => {
+  const userId = res.locals.user.id;
+  await User.updateOne({
+    _id: userId
+  },{
+    statusOnline: "offline"
+  })
 res.clearCookie("tokenUser")
 
   res.redirect("/")

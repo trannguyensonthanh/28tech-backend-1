@@ -19,6 +19,7 @@ friendList: [
 ],
 acceptFriends: Array,
 requestFriends: Array,
+statusOnline: String,
 status: {
   type: String,
   default: "active"

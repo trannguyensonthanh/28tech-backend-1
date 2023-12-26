@@ -532,6 +532,12 @@ animation-fill-mode: both;
   display: inline-block;
  }
 
+.box-user .inner-status[status="online"] {
+opacity: 1;
+}
 
+.box-user .inner-status {
+opacity: 0;
+}
 
 /* End box-user */

@@ -1,0 +1,36 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+
+block main 
+  .container.my-3 
+
+    include ../../partials/list-btn-users.pug
+
+    .row 
+      .col-12
+        +box-head(pageTitle)
+
+    .row
+      each user in users
+        .col-6
+          div(class="box-user")
+            div(class="inner-avatar")
+              img(
+                src=user.avatar ? user.avatar : "https://i.pinimg.com/236x/e5/bf/a2/e5bfa2feb7d65537aa684ef60f177de1.jpg"
+                alt=user.fullName
+              )
+            div(class="inner-info")
+              div(class="inner-name") #{user.fullName}
+              div(class="inner-buttons")
+                a(
+                  href="#"
+                  class="btn btn-primary btn-sm mr-1"
+                ) Nhắn tin
+            div(
+              class="inner-status"
+              status=user.statusOnline
+              ) <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/40C057/filled-circle.png" alt="filled-circle"/>
+
+block script 
+  script(src="/js/users.js") 
