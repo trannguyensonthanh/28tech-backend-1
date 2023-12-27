@@ -1,8 +1,11 @@
 const Chat = require("../../models/chat.model");
 const User = require("../../models/user.model")
 const uploadToCloudinary = require("../../helpers/uploadToCloudinary")
-module.exports = async () => {
+module.exports = async (req) => {
+  const roomChatId = req.params.roomChatId;
   _io.once("connection", (socket) => {
+socket.join(roomChatId); // nhiều người sẽ vô cùng một phòng nếu họ có cùng roomchatId
+
     socket.on("CLIENT_SEND_MESSAGE", async (data) => {
 
 let images = [];
@@ -16,6 +19,7 @@ for(const imageBuffer of data.images){
       })
       // luu vao database
       const chat = new Chat({
+        room_chat_id: roomChatId,
         user_id: data.userId,
         content: data.content,
         images: images
@@ -23,7 +27,7 @@ for(const imageBuffer of data.images){
       await chat.save();
 // trả data về client
 
- _io.emit("SERVER_RETURN_MESSAGE", {
+ _io.to(roomChatId).emit("SERVER_RETURN_MESSAGE", {
   userId: data.userId,
   fullName: userSend.fullName,
   content: data.content,
@@ -36,7 +40,7 @@ for(const imageBuffer of data.images){
       const userTyping = await User.findOne({
         _id: type.userIdTyping
       })
-        socket.broadcast.emit("SERVER_RETURN_TYPING", {
+        socket.broadcast.to(roomChatId).emit("SERVER_RETURN_TYPING", {
         userId: type.userIdTyping,
         fullName: userTyping.fullName,
         type: type.show,

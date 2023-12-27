@@ -200,7 +200,7 @@ await roomChat.save();
         friendList: 
           {
             user_id: userId,
-            room_chat_id: roomChat.id
+            room_chat_id: roomChat._id
           }
       },
       $pull: {acceptFriends: userId}
@@ -219,7 +219,7 @@ await roomChat.save();
         friendList: 
           {
             user_id: myUserId,
-            room_chat_id: roomChat.id 
+            room_chat_id: roomChat._id
           }
       },
       $pull: {requestFriends: myUserId }
