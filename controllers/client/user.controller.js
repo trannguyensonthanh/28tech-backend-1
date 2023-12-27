@@ -72,6 +72,11 @@ await User.updateOne({
   statusOnline: "online"
 });
 
+_io.once("connection", (socket) => {
+  // người dùng gửi yêu cầu kết bạn
+  socket.broadcast.emit("SERVER_RETURN_USER_ONLINE", user.id);
+});
+
 // lưu user_id vào carts
 await Cart.updateOne({
   _id: req.cookies.cartId
@@ -90,6 +95,11 @@ module.exports.logout = async (req, res) => {
   },{
     statusOnline: "offline"
   })
+  _io.once("connection", (socket) => {
+    // người dùng gửi yêu cầu kết bạn
+    socket.broadcast.emit("SERVER_RETURN_USER_OFFFLINE", userId);
+  });
+
 res.clearCookie("tokenUser")
 
   res.redirect("/")
