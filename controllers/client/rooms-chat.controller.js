@@ -2,9 +2,33 @@ const User = require("../../models/user.model")
 const RoomChat = require("../../models/room-chat.model")
 // [get] /rooms-chat/
 module.exports.index = async (req, res) => {
- res.render("client/pages/rooms-chat/index", {
-  pageTitle: "Danh sách phòng"
+const myUserId = res.locals.user.id;
+  const listRoomChat = await RoomChat.find({
+    deleted: false,
+    "users.user_id": myUserId
+  });
+
+  for (const room of listRoomChat) {
+    if(room.typeRoom == "friend"){
+       const user = room.users.find(item => {
+      return item.user_id != myUserId;  
+    })
+      const nameRoom = await User.findOne({
+        _id: user.user_id
+      }).select("fullName")
+    room.nameRoom = nameRoom.fullName;
+    }
+   
+   
+  }
+
+    res.render("client/pages/rooms-chat/index", {
+  pageTitle: "Danh sách phòng",
+  listRoomChat: listRoomChat
  })
+  
+
+ 
 }
 
 // [get] /rooms-chat/create
