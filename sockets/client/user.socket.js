@@ -1,3 +1,4 @@
+const RoomChat = require("../../models/room-chat.model");
 const User = require("../../models/user.model")
 
 module.exports = async (res) => {
@@ -157,13 +158,40 @@ socket.broadcast.emit("SERVER_RETURN_USER_ID_CANCEL_FRIEND", {
   //     console.log(myUserId); // accept cuả MyuserId (A)
   // console.log(userId);  // request của userid (B)
 
-// thêm {user_id, room_chat_id} của B vào friendList của A
-  // xóa lời mời của B trong accept của A
+// lấy ra user đã tồn tại trong nhiều trường hợp
   const existUserBInA = await User.findOne({
     _id: myUserId,
     acceptFriends: userId
   });
 
+  const existUserAInB = await User.findOne({
+    _id: userId,
+    requestFriends: myUserId
+  });
+
+let roomChat;
+
+// tạo một phòng chat
+if(existUserBInA && existUserAInB){
+roomChat = new RoomChat({
+  typeRoom: "friend",
+  users: [
+    {
+      user_id: userId,
+      role: "superAdmin"
+    },
+    {
+      user_id: myUserId,
+      role: "superAdmin"
+    }
+],
+})
+await roomChat.save();
+}
+
+
+// thêm {user_id, room_chat_id} của B vào friendList của A
+  // xóa lời mời của B trong accept của A
   if(existUserBInA){
     await User.updateOne({
       _id: myUserId
@@ -172,7 +200,7 @@ socket.broadcast.emit("SERVER_RETURN_USER_ID_CANCEL_FRIEND", {
         friendList: 
           {
             user_id: userId,
-            room_chat_id: ""
+            room_chat_id: roomChat.id
           }
       },
       $pull: {acceptFriends: userId}
@@ -181,10 +209,7 @@ socket.broadcast.emit("SERVER_RETURN_USER_ID_CANCEL_FRIEND", {
 
   // thêm {user_id, room_chat_id} của A vào friendList của B
   // xóa request của B gửi cho A
-  const existUserAInB = await User.findOne({
-    _id: userId,
-    requestFriends: myUserId
-  });
+ 
 
   if(existUserAInB){
     await User.updateOne({
@@ -194,7 +219,7 @@ socket.broadcast.emit("SERVER_RETURN_USER_ID_CANCEL_FRIEND", {
         friendList: 
           {
             user_id: myUserId,
-            room_chat_id: ""
+            room_chat_id: roomChat.id 
           }
       },
       $pull: {requestFriends: myUserId }
